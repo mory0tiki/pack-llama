@@ -1,0 +1,5 @@
+- model: pack_llama.Queue
+  pk: 1
+  fields:
+    name: Test
+    destination_url: http://127.0.0.1:8383/TransPool/Create/
