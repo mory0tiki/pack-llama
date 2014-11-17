@@ -4,6 +4,7 @@ from django.http.response import HttpResponse
 from django.views.generic import base
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 import ast
 import json
 import uuid
@@ -24,8 +25,9 @@ class SavePackView(base.View):
                 pack = models.Pack()
                 pack.receive_from = request.META["REMOTE_ADDR"]
                 pack.queue_id = models.Queue.objects.get(name='Test').id 
-                print request.body
-                print "++++++++++++++++++++++++"
+                if settings.DEBUG:
+                    print request.body
+                    print "++++++++++++++++++++++++"
                 pack.message.save(str(uuid.uuid4()),ContentFile(request.body))
                 result["result"] = True
         except Exception as ex:
